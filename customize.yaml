@@ -1,0 +1,99 @@
+zwave.fibaro_system_fgfs101_flood_sensor_2:
+  is_failed: true
+sensor.entrance_wall_remote_battery_level:
+  device_class: battery
+sensor.kitchen_flood_sensor_battery_level:
+  device_class: battery
+sensor.kitchen_smoke_detector_battery_level:
+  device_class: battery
+sensor.living_room_front_door_sensor_battery_level:
+  device_class: battery
+sensor.living_room_multisensor_battery_level:
+  device_class: battery
+sensor.living_room_street_window_sensor_battery_level:
+  device_class: battery
+sensor.living_room_wall_remote_battery_level:
+  device_class: battery
+sensor.living_room_yard_door_sensor_battery_level:
+  device_class: battery
+sensor.master_bathroom_flood_sensor_battery_level:
+  device_class: battery
+sensor.master_bathroom_multisensor_battery_level:
+  device_class: battery
+sensor.master_bathroom_window_sensor_battery_level:
+  device_class: battery
+sensor.master_bedroom_multisensor_battery_level:
+  device_class: battery
+sensor.master_bedroom_wall_remote_battery_level:
+  device_class: battery
+sensor.master_bedroom_window_sensor_battery_level:
+  device_class: battery
+sensor.ninas_room_wall_remote_battery_level:
+  device_class: battery
+sensor.ninas_room_window_sensor_battery_level:
+  device_class: battery
+sensor.small_bathroom_flood_sensor_battery_level:
+  device_class: battery
+sensor.small_bathroom_multisensor_battery_level:
+  device_class: battery
+sensor.small_bathroom_window_sensor_battery_level:
+  device_class: battery
+sensor.yard_pantry_door_sensor_battery_level:
+  device_class: battery
+sensor.refrigerator_remote_battery_level:
+  device_class: battery
+sensor.florins_wall_remote_battery_level:
+  device_class: battery
+person.florin:
+  entity_picture: http://IP/local/florin.png
+person.mihaela:
+  entity_picture: http://IP/local/mihaela.PNG
+binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2:
+  device_class: window
+binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_6:
+  device_class: window
+binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_5:
+  device_class: window
+binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4:
+  device_class: window
+binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_9:
+  device_class: window
+binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor:
+  device_class: door
+binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_7:
+  device_class: door
+binary_sensor.fibaro_system_fgsd002_smoke_sensor_sensor:
+  device_class: smoke
+binary_sensor.fibaro_system_fgfs101_flood_sensor_flood_3:
+  device_class: moisture
+binary_sensor.fibaro_system_fgfs101_flood_sensor_flood:
+  device_class: moisture
+binary_sensor.fibaro_system_fgfs101_flood_sensor_flood_2:
+  device_class: moisture
+binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_3:
+  device_class: motion
+binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2:
+  device_class: motion
+binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_4:
+  device_class: motion
+binary_sensor.fibaro_system_fgms001_motion_sensor_sensor:
+  device_class: motion
+light.domitech_smart_led_retrofit_kit_ze27eu_level_2:
+  icon: mdi:spotlight
+sensor.broadlink_sensor_humidity:
+  device_class: humidity
+  friendly_name: Nina's Room Humidity
+switch.greenwave_reality_inc_powernode_6_port_switch_3:
+  icon: mdi:laptop-windows
+switch.greenwave_reality_inc_powernode_6_port_switch_6:
+  icon: mdi:monitor
+switch.fibaro_system_fgwpef_wall_plug_switch_5:
+  icon: mdi:tablet
+switch.greenwave_reality_inc_powernode_6_port_switch_5:
+  icon: mdi:lamp
+switch.fibaro_system_fgwpef_wall_plug_switch_2:
+  icon: mdi:biohazard
+switch.greenwave_reality_inc_powernode_6_port_switch_4:
+  icon: mdi:monitor
+light.nina_s_table_lamp:
+  icon: mdi:desk-lamp

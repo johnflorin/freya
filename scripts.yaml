@@ -1,0 +1,373 @@
+  evening_mode:
+    alias: Evening Mode
+    sequence:
+      - alias: Lights On
+        service: light.turn_on
+        data:
+          entity_id: light.kitchen_lamp,light.dining_area_light_2,light.color_lamp_2,light.reds_bedroom_lamp_2,light.moon_lamp,light.floor_lamp_2,light.light_strip
+      - alias: Switches On
+        service: switch.turn_on
+        data:
+          entity_id: switch.florin_s_bedroom_lamp, switch.greenwave_powernode_6_port_switch_3, switch.fibaro_system_fgwpef_wall_plug_switch_3, switch.greenwave_reality_inc_powernode_6_port_switch_5
+      - alias: Cover On
+        service: cover.close_cover
+        data:
+          entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level
+        
+  make_sandwich:
+    alias: Make Sandwich
+    sequence:
+      - alias: Sandwich Maker On
+        service: switch.turn_on
+        data:
+          entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_4
+      - delay: "00:06:00"
+      - alias: Sandwich Maker Off
+        service: switch.turn_off
+        data:
+          entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_4
+
+  late_evening_mode:
+    alias: Late Night Mode
+    sequence:
+      - alias: Lights Off
+        service: light.turn_off
+        data:
+          entity_id: light.kitchen_lamp,light.dining_area_light_2,light.reds_bedroom_lamp_2,light.light_strip
+      - alias: Switches Off
+        service: switch.turn_off
+        data:
+          entity_id: switch.fibaro_system_fgwpef_wall_plug_switch,switch.florin_s_bedroom_lamp,switch.fibaro_system_fgwpef_wall_plug_switch_3
+      - alias: Covers Closed
+        service: cover.close_cover
+        data:
+          entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level
+
+  living_room_aircon_on:
+    alias: Turn On Living Room Aircon
+    sequence:
+      - alias: Aircon On 
+        service: switch.turn_on
+        data:
+          entity_id: switch.aircon_living_room
+
+  living_room_aircon_off:
+    alias: Turn Off Living Room Aircon
+    sequence:
+      - alias: Aircon Off 
+        service: switch.turn_off
+        data:
+          entity_id: switch.aircon_living_room
+
+
+  tts_test:
+    alias: Text to Speech Test
+    sequence:
+      - service: tts.google_say
+        entity_id: media_player.master_bedroom_speaker
+        data:
+          message: ' Nina, este timpul să te culci. '
+          language: 'ro'
+
+  harmony_watch_tv:
+    alias: Watch TV
+    sequence:
+      - service: remote.turn_on
+        entity_id: remote.living_room
+        data:
+          activity: "31609482"
+          
+  harmony_watch_apple_tv:
+    alias: Watch Apple TV
+    sequence:
+      - service: remote.turn_on
+        entity_id: remote.living_room
+        data:
+          activity: "25899662"
+          
+  harmony_listen_to_music:
+    alias: Listen to Music
+    sequence:
+      - service: remote.turn_on
+        entity_id: remote.living_room
+        data:
+          activity: "32454410"
+          
+  harmony_play_xbox_one:
+    alias: Play Xbox One
+    sequence:
+      - service: remote.turn_on
+        entity_id: remote.living_room
+        data:
+          activity: "25899589"
+          
+  harmony_poweroff:
+    alias: Power Off
+    sequence:
+      - service: remote.turn_on
+        entity_id: remote.living_room
+        data:
+          activity: "PowerOff"
+
+  harmony_watch_chromecast:
+    alias: Watch Chromecast
+    sequence:
+      - service: remote.turn_on
+        entity_id: remote.living_room
+        data:
+          activity: "35921577"
+
+#  christmas_mode:
+#    alias: Christmas Mode
+#    sequence:
+#      - alias: Christmas Tree Light On
+#        service: switch.turn_on
+#        data:
+#          entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_3
+#      - alias: Play Christmas Song
+#        service: media_player.play_media
+#        data:
+#          entity_id: media_player.home_theater
+#          media_content_id: !secret christmas_song_url
+#          media_content_type: 'music'
+
+  night_mode:
+    alias: Bedtime
+    sequence:
+      - alias: Lights Off
+        service: light.turn_off
+        data:
+          entity_id: light.kitchen_lamp,light.dining_area_light_2,light.reds_bedroom_lamp_2,light.small_bathroom_light_2,light.master_bathroom_light_2,light.floor_lamp_2,light.light_strip
+      - alias: Switches Off
+        service: switch.turn_off
+        data:
+          entity_id: switch.fibaro_system_fgwpef_wall_plug_switch,switch.florin_s_bedroom_lamp, switch.fibaro_system_fgwpef_wall_plug_switch_3, switch.greenwave_reality_inc_powernode_6_port_switch_5
+      - alias: Covers Closed
+        service: cover.close_cover
+        data:
+          entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level,
+
+  front_door_automation_florin:
+    sequence:
+      - service: automation.trigger
+        entity_id: automation.front_door_opened_florin
+
+  front_door_automation_florin_ipad:
+    sequence:
+      - service: automation.trigger
+        entity_id: automation.front_door_opened_florin_ipad
+
+  front_door_automation_mihaela_iphone:
+    sequence:
+      - service: automation.trigger
+        entity_id: automation.front_door_opened_mihaela_iphone
+
+  windows_left_open:
+    alias: Windows Left Open
+    sequence:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+          state: 'on'
+        - condition: state
+          entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+          state: 'on'
+        - condition: state
+          entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_5
+          state: 'on'
+    - service: tts.google_say
+      entity_id: media_player.master_bedroom_speaker
+      data:
+        message: ' You have left a bathroom or street window open, please close it. '
+
+  all_windows_closed:
+    alias: All Windows Closed
+    sequence:
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_5
+          state: 'off'
+    - service: tts.google_say
+      entity_id: media_player.master_bedroom_speaker
+      data:
+        message: ' Your bathroom and street windows are closed, enjoy your night. '
+  
+  thermostat_off_if_windows_open:
+    alias: Turn Off Thermostat if Windows Open
+    sequence:
+      - alias: Thermostat Off
+        service: climate.set_temperature
+        data:
+          entity_id: climate.netatmo_master_bedroom
+          temperature: 17
+
+
+  thermostat_on_if_windows_closed:
+    alias: Turn On Thermostat if Windows Closed
+    sequence:
+      - alias: Thermostat On
+        service: climate.set_temperature
+        data:
+          entity_id: climate.netatmo_master_bedroom
+          temperature: 22
+
+  away_mode:
+    alias: Away Mode
+    sequence:
+      - alias: Lights Off
+        service: light.turn_off
+        data:
+          entity_id: light.kitchen_lamp,light.dining_area_light_2,light.small_bathroom_light_2,light.master_bathroom_light_2,light.ceiling_light,light.color_lamp_2,light.reds_bedroom_lamp_2,light.moon_lamp,light.domitech_smart_led_retrofit_kit_ze27eu_level_2 
+      - alias: Switches Off
+        service: switch.turn_off
+        data:
+          entity_id: switch.fibaro_system_fgwpef_wall_plug_switch,switch.fibaro_system_fgwpef_wall_plug_switch_5,switch.florin_s_bedroom_lamp,switch.fibaro_system_fgwpef_wall_plug_switch_3
+#      - alias: Covers Closed
+#        service: cover.close_cover
+#        data:
+#          entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level,cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_6
+      - alias: Cameras Room Views
+        service: script.turn_on
+        data:
+          entity_id: script.living_room_camera_room_view,script.master_bedroom_camera_room_view,script.yard_camera_yard_view
+  home_mode:
+    alias: Home Mode
+    sequence:
+      - alias: Lights On
+        service: light.turn_on
+        data:
+          entity_id: light.kitchen_lamp,light.dining_area_light_2 
+      - alias: Alarm Off
+        service: switch.turn_off
+        data:
+          entity_id: switch.aeotec_zw080_siren_gen5_switch
+#      - alias: Covers Open
+#        service: cover.open_cover
+#        data:
+#          entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level,cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_6
+      - alias: Cameras Back to Wall
+        service: script.turn_on
+        data:
+          entity_id: script.living_room_camera_back_to_wall,script.master_bedroom_camera_back_to_wall,script.yard_camera_back_to_wall
+
+  living_room_camera_up:
+    alias: Living Room Camera Up
+    sequence:
+      - service: rest_command.living_room_camera_up
+  living_room_camera_down:
+    alias: Living Room Camera Down
+    sequence:
+      - service: rest_command.living_room_camera_down
+  living_room_camera_left:
+    alias: Living Room Camera Left
+    sequence:
+      - service: rest_command.living_room_camera_left
+  living_room_camera_right:
+    alias: Living Room Camera Right
+    sequence:
+      - service: rest_command.living_room_camera_right
+  living_room_camera_back_to_wall:
+    alias: Living Room Camera Back To Wall
+    sequence:
+      - service: rest_command.living_room_camera_back_to_wall
+ 
+  living_room_camera_room_view:
+    alias: Living Room Camera Room View
+    sequence:
+      - service: rest_command.living_room_camera_room_view
+
+  master_bedroom_camera_up:
+    alias: Master Bedroom Camera Up
+    sequence:
+      - service: rest_command.master_bedroom_camera_up
+  master_bedroom_camera_down:
+    alias: Master Bedroom Camera Down
+    sequence:
+      - service: rest_command.master_bedroom_camera_down
+  master_bedroom_camera_left:
+    alias: Master Bedroom Camera Left
+    sequence:
+      - service: rest_command.master_bedroom_camera_left
+  master_bedroom_camera_right:
+    alias: Master Bedroom Camera Right
+    sequence:
+      - service: rest_command.master_bedroom_camera_right
+  master_bedroom_camera_back_to_wall:
+    alias: Master Bedroom Camera Back To Wall
+    sequence:
+      - service: rest_command.master_bedroom_camera_back_to_wall
+  master_bedroom_camera_room_view:
+    alias: Master Bedroom Camera Room View
+    sequence:
+      - service: rest_command.master_bedroom_camera_room_view
+
+  yard_camera_up:
+    alias: Yard Camera Up
+    sequence:
+      - service: rest_command.yard_camera_up
+  yard_camera_down:
+    alias: Yard Camera Down
+    sequence:
+      - service: rest_command.yard_camera_down
+  yard_camera_left:
+    alias: Yard Camera Left
+    sequence:
+      - service: rest_command.yard_camera_left
+  yard_camera_right:
+    alias: Yard Camera Right
+    sequence:
+      - service: rest_command.yard_camera_right
+  yard_camera_back_to_wall:
+    alias: Yard Camera Back To Wall
+    sequence:
+      - service: rest_command.yard_camera_back_to_wall
+  yard_camera_yard_view:
+    alias: Yard Camera Yard View
+    sequence:
+      - service: rest_command.yard_camera_yard_view
+
+  server_maintenance_started:
+    alias: Server Maintenance Started
+    sequence:
+      - service: notify.telegram_mihaela
+        data:
+          message: Server maintenance has started.
+      - service: notify.telegram_florin
+        data:
+          message: Server maintenance has started.
+
+  server_maintenance_finished:
+    alias: Server Maintenance Finished
+    sequence:
+      - service: notify.telegram_mihaela
+        data:
+          message: Server maintenance is finished, thank you for your patience.
+      - service: notify.telegram_florin
+        data:
+          message: Server maintenance is finished, thank you for your patience.
+
+  server_maintenance_finished_with_comments:
+    alias: Server Maintenance Finished With Comments
+    sequence:
+      - service: notify.telegram_mihaela
+        data:
+          message: Server maintenance is momentarily finished, Nina's Ceiling Light & Living Room Floor Lamp are currently not functional and will be fixed tonight.
+      - service: notify.telegram_florin
+        data:
+          message: Server maintenance is momentarily finished, Nina's Ceiling Light & Living Room Floor Lamp are currently not functional and will be fixed tonight.
+
+#  master_bedroom_morning_script:
+#    alias: Master Bedroom Morning Script
+#    sequence:
+#      - alias: Cover Opened
+#        service: cover.open_cover
+#        data:
+#          entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_2

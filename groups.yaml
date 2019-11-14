@@ -1,0 +1,5 @@
+people_away:
+  name: People Away
+  entities:
+    - person.mihaela
+    - person.florin

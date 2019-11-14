@@ -1,0 +1,561 @@
+cch:
+  disable: true
+  disable_sidebar: true
+  header: false
+excluded_entities:
+  - weblink.router
+resources:
+  - type: js
+    url: /local/plan-coordinates.js?v=1
+title: Home
+views:
+  - cards:
+      - entities:
+          - entity: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor
+          - entity: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+          - entity: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_9
+          - entity: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+          - entity: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_5
+          - entity: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_6
+          - entity: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_7
+          - entity: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_8
+        state_filter:
+          - 'on'
+        title: Open Doors & Windows
+        type: entity-filter
+      - entity: sensor.master_bedroom_humidity
+        max: 100
+        min: 0
+        name: Humidity
+        severity:
+          green: 30
+          red: 60
+          yellow: 50
+        theme: default
+        type: gauge
+      - entity: sensor.master_bedroom_temperature
+        graph: line
+        name: Apartment Temperature
+        type: sensor
+      - entities:
+          - entity: person.florin
+          - entity: person.mihaela
+          - entity: script.evening_mode
+            name: Start Evening Mode
+          - entity: script.late_evening_mode
+            name: Start Late Night Mode
+          - entity: script.night_mode
+            name: Start Bedtime
+          - entity: sensor.broadlink_sensor_temperature
+            name: Nina's Room
+          - entity: sensor.living_room_temperature
+            name: Master Bedroom
+          - entity: sensor.fibaro_system_fgms001_motion_sensor_temperature_2
+            name: Master Bathroom
+          - entity: sensor.aeotec_zw100_multisensor_6_temperature
+            name: Small Bathroom
+          - entity: sensor.living_room_air_quality_name
+            icon: 'mdi:weather-windy'
+            name: Nina's Room Air Quality
+          - entity: sensor.living_room_humidity
+          - entity: sensor.broadlink_sensor_humidity
+          - entity: sensor.aeotec_zw100_multisensor_6_relative_humidity
+            icon: 'mdi:water-percent'
+            name: Small Bathroom Humidity
+          - entity: sensor.living_room_noise_name
+            icon: 'mdi:surround-sound'
+            name: Small Bathroom Noise
+        show_header_toggle: false
+        title: Apartment
+        type: entities
+      - entities:
+          - entity: light.dining_area_light_2
+            icon: 'mdi:ceiling-light'
+            name: Dining Area Light
+          - entity: light.floor_lamp_2
+            icon: 'mdi:floor-lamp'
+            name: Floor Lamp
+          - entity: light.light_strip
+            icon: 'mdi:led-strip'
+          - entity: light.nina_s_table_lamp
+          - entity: switch.fibaro_system_fgwpef_wall_plug_switch_5
+          - entity: switch.aircon_living_room
+            icon: 'mdi:air-conditioner'
+            name: Air Conditioning
+          - entity: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level
+            name: Street Window Shutter
+          - entity: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_4
+            name: Yard Door Shutter
+          - entity: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor
+            icon: 'mdi:run-fast'
+            name: Living Room Motion
+          - entity: sensor.fibaro_system_fgms001_motion_sensor_luminance
+            icon: 'mdi:brightness-6'
+            name: Living Room Light
+        title: Living Room
+        type: entities
+      - entities:
+          - entity: light.color_lamp_2
+            name: Color Lamp
+          - entity: light.moon_lamp
+            icon: 'mdi:weather-night'
+            name: Moon Lamp
+          - entity: switch.greenwave_powernode_6_port_switch_3
+            icon: 'mdi:desk-lamp'
+          - entity: switch.fibaro_system_fgwpef_wall_plug_switch_2
+          - entity: switch.greenwave_powernode_6_port_switch
+            icon: 'mdi:waves'
+          - entity: switch.greenwave_powernode_6_port_switch_2
+            icon: 'mdi:weather-windy'
+          - entity: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_6
+            name: Nina's Room Shutter
+          - entity: climate.netatmo_nina_s_room
+        title: Nina's Room
+        type: entities
+      - entities:
+          - entity: switch.florin_s_bedroom_lamp
+            icon: 'mdi:mdi:lamp'
+            name: Florin's Bedroom Lamp
+          - entity: switch.fibaro_system_fgwpef_wall_plug_switch_3
+            icon: 'mdi:mdi:lamp'
+          - entity: switch.greenwave_reality_inc_powernode_6_port_switch_5
+          - entity: switch.greenwave_reality_inc_powernode_6_port_switch_4
+          - entity: switch.greenwave_reality_inc_powernode_6_port_switch_3
+          - entity: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_2
+            name: Master Bedroom Shutter
+          - entity: climate.netatmo_master_bedroom
+            name: Thermostat
+          - entity: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_4
+            icon: 'mdi:run-fast'
+            name: Master Bedroom Motion
+          - entity: sensor.fibaro_system_fgms001_motion_sensor_luminance_4
+            icon: 'mdi:brightness-6'
+            name: Master Bedroom Light
+        title: Master Bedroom
+        type: entities
+      - entities:
+          - entity: light.kitchen_lamp
+            icon: 'mdi:ceiling-light'
+            name: Kitchen Lamp
+          - entity: switch.fibaro_system_fgwpef_wall_plug_switch
+            icon: 'mdi:led-strip'
+            name: Counter Lights
+          - entity: switch.fibaro_system_fgwpef_wall_plug_switch_6
+            icon: 'mdi:bread-slice-outline'
+          - entity: switch.fibaro_system_fgwpef_wall_plug_switch_4
+            icon: 'mdi:hamburger'
+          - entity: script.make_sandwich
+          - entity: sensor.fibaro_system_fgsd002_smoke_sensor_temperature
+            name: Ceiling Temperature
+          - entity: binary_sensor.fibaro_system_fgsd002_smoke_sensor_sensor
+            icon: 'mdi:smoke-detector'
+            name: Smoke Detector
+          - entity: binary_sensor.fibaro_system_fgfs101_flood_sensor_flood_3
+            icon: 'mdi:water'
+            name: Kitchen Flood Sensor
+        title: Kitchen
+        type: entities
+      - entities:
+          - entity: light.master_bathroom_light_2
+            name: Master Bathroom Light
+          - entity: sensor.fibaro_system_fgfs101_flood_sensor_temperature
+            name: Sub-Toilet Temperature
+          - entity: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+            icon: 'mdi:run-fast'
+            name: Master Bathroom Motion
+          - entity: sensor.fibaro_system_fgms001_motion_sensor_luminance_2
+            icon: 'mdi:brightness-6'
+            name: Master Bathroom Light
+          - entity: binary_sensor.fibaro_system_fgfs101_flood_sensor_flood
+            icon: 'mdi:water'
+            name: Master Bathroom Flood Sensor
+          - entity: climate.netatmo_master_bathroom
+        title: Master Bathroom
+        type: entities
+      - entities:
+          - entity: light.small_bathroom_light_2
+            name: Small Bathroom Light
+          - entity: switch.fibaro_system_fgwpe_f_wall_plug_switch
+            icon: 'mdi:washing-machine'
+          - entity: input_select.washing_machine_status
+            name: Washing Machine Status
+          - entity: sensor.fibaro_system_fgfs101_flood_sensor_temperature_2
+            name: Sub-Toilet Temperature
+          - entity: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_3
+            icon: 'mdi:run-fast'
+            name: Small Bathroom Motion
+          - entity: sensor.aeotec_zw100_multisensor_6_luminance
+            icon: 'mdi:brightness-6'
+            name: Small Bathroom Light
+          - entity: binary_sensor.fibaro_system_fgfs101_flood_sensor_flood_2
+            icon: 'mdi:water'
+            name: Small Bathroom Flood Sensor
+        title: Small Bathroom
+        type: entities
+      - entities:
+          - entity: light.reds_bedroom_lamp_2
+            icon: 'mdi:spotlight'
+          - entity: light.ceiling_light
+            icon: 'mdi:spotlight'
+          - entity: light.domitech_smart_led_retrofit_kit_ze27eu_level_2
+        title: Yard
+        type: entities
+      - entities:
+          - entity: sensor.miflora_illuminance
+          - entity: sensor.miflora_moisture
+          - entity: sensor.miflora_soil_conductivity
+          - entity: sensor.miflora_temperature
+        show_header_toggle: false
+        title: Zanzibar Gem
+        type: entities
+    icon: 'mdi:home-assistant'
+    id: 0
+    theme: dark-mode
+    title: Home
+  - cards:
+      - elements:
+          - entity: light.dining_area_light_2
+            style:
+              left: 84%
+              top: 25%
+            title: Dining Area Light
+            type: state-icon
+          - entity: light.nina_s_table_lamp
+            style:
+              left: 52%
+              top: 25%
+            title: Nina's Table Lamp
+            type: state-icon
+          - entity: light.floor_lamp_2
+            style:
+              left: 72%
+              top: 16%
+            title: Floor Lamp
+            type: state-icon
+          - entity: light.kitchen_lamp
+            style:
+              left: 49%
+              top: 25%
+            title: Kitchen Lamp
+            type: state-icon
+          - entity: switch.fibaro_system_fgwpef_wall_plug_switch
+            style:
+              left: 39%
+              top: 15%
+            title: Counter Lights
+            type: state-icon
+          - entity: light.light_strip
+            style:
+              left: 37%
+              top: 43%
+            title: Light Strip
+            type: state-icon
+          - entity: light.master_bathroom_light_2
+            style:
+              left: 89%
+              top: 67%
+            title: Master Bathroom Light
+            type: state-icon
+          - entity: light.small_bathroom_light_2
+            style:
+              left: 30%
+              top: 25%
+            title: Small Bathroom Light
+            type: state-icon
+          - entity: switch.fibaro_system_fgwpef_wall_plug_switch_3
+            style:
+              left: 7%
+              top: 36%
+            title: Red's Bedroom Lamp
+            type: state-icon
+          - entity: switch.florin_s_bedroom_lamp
+            style:
+              left: 7%
+              top: 14%
+            title: Florin's Bedroom Lamp
+            type: state-icon
+          - entity: switch.greenwave_reality_inc_powernode_6_port_switch_5
+            style:
+              left: 7%
+              top: 47%
+            title: Red's Desk Lamp
+            type: state-icon
+          - entity: light.reds_bedroom_lamp_2
+            style:
+              left: 31%
+              top: 74%
+            title: Terrace Light
+            type: state-icon
+          - entity: light.reds_bedroom_lamp_2
+            style:
+              left: 20%
+              top: 89%
+            title: Ivy Light
+            type: state-icon
+          - entity: light.domitech_smart_led_retrofit_kit_ze27eu_level_2
+            style:
+              left: 15%
+              top: 58%
+            title: Master Bedroom Window Light
+            type: state-icon
+          - entity: light.color_lamp_2
+            style:
+              left: 53.5%
+              top: 72%
+            title: Color Lamp
+            type: state-icon
+          - entity: light.moon_lamp
+            style:
+              left: 53%
+              top: 90%
+            title: Moon Lamp
+            type: state-icon
+          - entity: switch.greenwave_powernode_6_port_switch_3
+            style:
+              left: 36%
+              top: 62%
+            title: Flexible
+            type: state-icon
+        image: /local/Floorplan/apartment.JPG
+        type: picture-elements
+    icon: 'mdi:floor-plan'
+    panel: true
+    title: Apartment
+  - cards:
+      - camera_image: camera.living_room
+        camera_view: live
+        entities:
+          - entity: script.living_room_camera_up
+            icon: 'mdi:arrow-up-bold-box'
+          - entity: script.living_room_camera_down
+            icon: 'mdi:arrow-down-bold-box'
+          - entity: script.living_room_camera_left
+            icon: 'mdi:arrow-left-bold-box'
+          - entity: script.living_room_camera_right
+            icon: 'mdi:arrow-right-bold-box'
+          - entity: script.living_room_camera_room_view
+            icon: 'mdi:sofa'
+          - entity: script.living_room_camera_back_to_wall
+            icon: 'mdi:wall'
+        title: Living Room
+        type: picture-glance
+      - camera_image: camera.master_bedroom
+        camera_view: live
+        entities:
+          - entity: script.master_bedroom_camera_up
+            icon: 'mdi:arrow-up-bold-box'
+          - entity: script.master_bedroom_camera_down
+            icon: 'mdi:arrow-down-bold-box'
+          - entity: script.master_bedroom_camera_left
+            icon: 'mdi:arrow-left-bold-box'
+          - entity: script.master_bedroom_camera_right
+            icon: 'mdi:arrow-right-bold-box'
+          - entity: script.master_bedroom_camera_room_view
+            icon: 'mdi:bed-empty'
+          - entity: script.master_bedroom_camera_back_to_wall
+            icon: 'mdi:wall'
+        title: Bedroom
+        type: picture-glance
+      - camera_image: camera.yard
+        camera_view: live
+        entities:
+          - entity: script.yard_camera_up
+            icon: 'mdi:arrow-up-bold-box'
+          - entity: script.yard_camera_down
+            icon: 'mdi:arrow-down-bold-box'
+          - entity: script.yard_camera_left
+            icon: 'mdi:arrow-left-bold-box'
+          - entity: script.yard_camera_right
+            icon: 'mdi:arrow-right-bold-box'
+          - entity: script.yard_camera_yard_view
+            icon: 'mdi:border-outside'
+          - entity: script.yard_camera_back_to_wall
+            icon: 'mdi:wall'
+        title: Yard
+        type: picture-glance
+      - camera_view: live
+        entity: camera.nina_s_room
+        type: picture-entity
+    icon: 'mdi:cctv'
+    id: 2
+    title: Cameras
+  - cards:
+      - entity: media_player.bedroom_speaker
+        id: 29590fc8dce8468fbe100534cec17aa7
+        title: Nina's Room
+        type: media-control
+      - entity: media_player.living_room_tv
+        id: 3aa5945d7afe43c0828595fc64c2f223
+        title: Living Room TV
+        type: media-control
+      - entity: media_player.home_theater
+        id: 311e84a36ff448ffb5baf5297b00ef3d
+        title: Living Room Home Theater
+        type: media-control
+      - entity: media_player.master_bedroom_speaker
+        id: 9ed7e6f5677044f3a57c9b2f21a88d1f
+        title: Master Bedroom
+        type: media-control
+      - entity: media_player.apartment
+        id: 61f109e546ee4a9d8506e68a2b20be2d
+        title: Apartment
+        type: media-control
+    icon: 'mdi:play-circle'
+    id: 3
+    title: Media
+  - cards:
+      - entity: weather.dark_sky
+        id: fc1677a8efdd42b7b3eabd8b8caa7a18
+        title: Weather
+        type: weather-forecast
+      - entities:
+          - entity: sensor.moon
+        show_header_toggle: false
+        title: Moon
+        type: entities
+      - entities:
+          - entity: sensor.waqi_calea_victoriei_cercul_militar_romania
+            name: Calea Victoriei
+        show_header_toggle: false
+        title: Air Quality in Bucharest
+        type: entities
+    icon: 'mdi:calendar-today'
+    id: 4
+    title: Today
+  - cards:
+      - entities:
+          - entity: script.server_maintenance_started
+          - entity: script.server_maintenance_finished
+          - entity: script.server_maintenance_finished_with_comments
+        show_header_toggle: false
+        title: Maintenance
+        type: entities
+      - entities:
+          - entity: sensor.speedtest_download
+          - entity: sensor.speedtest_upload
+          - entity: sensor.speedtest_ping
+          - entity: sensor.qbittorrent_down_speed
+          - entity: sensor.qbittorrent_up_speed
+        show_header_toggle: false
+        title: Speeds
+        type: entities
+      - entities:
+          - entity: sensor.disk_use_percent_home
+            name: Disk Use
+          - entity: sensor.memory_use_percent
+            name: Memory Use
+          - entity: sensor.processor_use
+            name: Processor Use
+          - entity: sensor.last_boot
+            name: Last Boot
+          - entity: sensor.monitor_script_status
+          - entity: binary_sensor.remote_ui
+        show_header_toggle: false
+        title: System Monitor
+        type: entities
+      - entities:
+          - entity: zwave.fibaro_system_fgfs101_flood_sensor
+          - entity: zwave.fibaro_system_fgfs101_flood_sensor_3
+          - entity: zwave.fibaro_system_fgfs101_flood_sensor_4
+          - entity: zwave.fibaro_system_fgk101_door_opening_sensor
+          - entity: zwave.fibaro_system_fgk101_door_opening_sensor_2
+          - entity: zwave.fibaro_system_fgk101_door_opening_sensor_4
+          - entity: zwave.fibaro_system_fgk101_door_opening_sensor_5
+          - entity: zwave.fibaro_system_fgk101_door_opening_sensor_6
+          - entity: zwave.fibaro_system_fgk101_door_opening_sensor_7
+          - entity: zwave.fibaro_system_fgk101_door_opening_sensor_8
+          - entity: zwave.fibaro_system_fgk101_door_opening_sensor_9
+          - entity: zwave.fibaro_system_fgms001_motion_sensor_2
+          - entity: zwave.fibaro_system_fgms001_motion_sensor_3
+          - entity: zwave.popp_009303_battery_wall_controller_3
+          - entity: zwave.popp_009303_battery_wall_controller_4
+          - entity: zwave.popp_009303_battery_wall_controller_5
+          - entity: zwave.popp_009303_battery_wall_controller_6
+          - entity: zwave.popp_009303_battery_wall_controller_7
+          - entity: zwave.popp_009303_battery_wall_controller_8
+          - entity: zwave.fibaro_system_fgsd002_smoke_sensor
+          - entity: zwave.domitech_smart_led_retrofit_kit_ze27eu_2
+          - entity: zwave.fibaro_system_fgrm222_roller_shutter_controller_2
+          - entity: zwave.fibaro_system_fgrm222_roller_shutter_controller_2_2
+          - entity: zwave.fibaro_system_fgrm222_roller_shutter_controller_2_5
+          - entity: zwave.fibaro_system_fgrm222_roller_shutter_controller_2_7
+          - entity: zwave.fibaro_system_fgwpef_wall_plug
+          - entity: zwave.fibaro_system_fgwpef_wall_plug_2
+          - entity: zwave.fibaro_system_fgwpef_wall_plug_3
+          - entity: zwave.fibaro_system_fgwpef_wall_plug_4
+          - entity: zwave.fibaro_system_fgwpef_wall_plug_5
+          - entity: zwave.fibaro_system_fgwpef_wall_plug_6
+          - entity: zwave.fibaro_system_fgwpe_f_wall_plug
+          - entity: zwave.greenwave_powernode_6_port
+          - entity: zwave.greenwave_reality_inc_powernode_6_port
+          - entity: zwave.aeotec_zw080_siren_gen5
+          - entity: zwave.aeotec_zw100_multisensor_6
+          - entity: zwave.zwaveme_zme_uzb1_usb_stick
+        show_header_toggle: false
+        title: ZWave
+        type: entities
+      - entities:
+          - entity: sensor.fibaro_system_fgwpef_wall_plug_power_5
+          - entity: sensor.fibaro_system_fgwpef_wall_plug_power
+          - entity: sensor.fibaro_system_fgwpef_wall_plug_power_7
+          - entity: sensor.fibaro_system_fgwpef_wall_plug_power_3
+          - entity: sensor.fibaro_system_fgwpef_wall_plug_power_12
+          - entity: sensor.fibaro_system_fgwpe_f_wall_plug_power_2
+          - entity: sensor.fibaro_system_fgwpef_wall_plug_power_9
+        show_header_toggle: false
+        title: Power Consumption
+        type: entities
+      - entities:
+          - entity: sensor.entrance_wall_remote_battery_level
+          - entity: sensor.kitchen_flood_sensor_battery_level
+          - entity: sensor.kitchen_smoke_detector_battery_level
+          - entity: sensor.refrigerator_remote_battery_level
+          - entity: sensor.living_room_front_door_sensor_battery_level
+          - entity: sensor.living_room_street_window_sensor_battery_level
+          - entity: sensor.living_room_wall_remote_battery_level
+          - entity: sensor.master_bathroom_flood_sensor_battery_level
+          - entity: sensor.master_bathroom_multisensor_battery_level
+          - entity: sensor.master_bathroom_window_sensor_battery_level
+          - entity: sensor.master_bedroom_window_sensor_battery_level
+          - entity: sensor.master_bedroom_wall_remote_battery_level
+          - entity: sensor.florins_wall_remote_battery_level
+          - entity: sensor.ninas_room_window_sensor_battery_level
+          - entity: sensor.ninas_room_wall_remote_battery_level
+          - entity: sensor.small_bathroom_flood_sensor_battery_level
+          - entity: sensor.small_bathroom_multisensor_battery_level
+          - entity: sensor.small_bathroom_window_sensor_battery_level
+          - entity: sensor.yard_pantry_door_sensor_battery_level
+          - entity: sensor.living_room_sensor_battery_level
+          - entity: sensor.master_bedroom_battery_level
+        show_header_toggle: false
+        title: Battery Level
+        type: entities
+      - entities:
+          - entity: script.living_room_aircon_on
+            name: Living Room Aircon On
+          - entity: script.tts_test
+            name: Text to Speech Test
+          - entity: script.front_door_automation_florin
+            name: Front Door Notification Florin Telegram
+          - entity: script.front_door_automation_florin_ipad
+            name: Front Door Notification Florin iPad
+          - entity: script.front_door_automation_mihaela_iphone
+            name: Front Door Notification Mihaela iPhone
+          - entity: script.thermostat_off_if_windows_open
+            name: Turn Thermostat Off if Windows Open
+          - entity: script.thermostat_on_if_windows_closed
+            name: Turn Thermostat On if Windows Closed
+        show_header_toggle: false
+        title: Script Tests
+        type: entities
+      - entities:
+          - entity: device_tracker.mihaelas_iphone
+            name: Mihaela's iPhone
+          - entity: device_tracker.ioans_ipad
+            name: Florin's iPad
+        show_header_toggle: false
+        title: Devices
+        type: entities
+    icon: 'mdi:server'
+    id: 5
+    title: Tech

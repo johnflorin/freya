@@ -1,0 +1,1294 @@
+#- alias: Outdoor Lights Evening Mode
+#  initial_state: 'on'
+#  trigger:
+#    platform: sun
+#    event: sunset
+#    offset: +00:15:00
+#  action:
+#  - service: homeassistant.turn_on
+#    entity_id: switch.fibaro_system_fgs222_double_relay_switch_2x15kw_switch
+#  id: db9e9e35e7cc41ac8d9085f089e766df
+
+#- id: 3e621843c71c4446ac35ab0e6db8b609
+#  alias: Outdoor Lights Morning Mode
+#  initial_state: 'on'
+#  trigger:
+#    platform: sun
+#    event: sunrise
+#  action:
+#  - service: homeassistant.turn_off
+#    entity_id: switch.fibaro_system_fgs222_double_relay_switch_2x15kw_switch
+
+#- alias: Master Bedroom Morning Mode
+#  initial_state: 'on'
+#  trigger:
+#    platform: time
+#    at: 06:45:00
+#  condition:
+#  - condition: time
+#    weekday:
+#    - mon
+#    - tue
+#    - wed
+#    - thu
+#    - fri
+#  action:
+#  - service: cover.set_cover_position
+#    data:
+#      entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_2
+#      position: 50
+#  id: d400290546cc45889154e365ebe50752
+
+#- alias: Master Bedroom Day Mode
+#  initial_state: 'on'
+#  trigger:
+#    platform: time
+#    at: 07:15:00
+#  condition:
+#  - condition: time
+#    weekday:
+#    - mon
+#    - tue
+#    - wed
+#    - thu
+#    - fri
+#  action:
+#  - service: cover.set_cover_position
+#    data:
+#      entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_2
+#      position: 100
+#  id: 542bc6565ff44ff68bc33080fe597119
+
+- alias: Living Room Morning Mode
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: 06:00:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level
+      position: 100
+  id: 9dc9b5a4abf04bfa9df44e9050cd0665
+
+- alias: Set theme at startup
+  initial_state: 'on'
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+    service: frontend.set_theme
+    data:
+      name: blueish
+  id: 4387bcab47dc4ffd92d199054fa1b6ed
+
+- alias: Set dark theme for the night
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '21:00'
+  action:
+  - service: frontend.set_theme
+    data:
+      name: midnight
+  id: defe0b1201de40e181c2a4a980e406be
+
+- alias: Set light theme for the day
+  initial_state: true
+  trigger:
+  - platform: time
+    at: 07:00
+  action:
+  - service: frontend.set_theme
+    data:
+      name: blueish
+  id: 193a731522324a8c9af86027bbbefddf
+
+- alias: Turn on Home Theater for Music
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: remote.living_room
+    to: 'off'
+  action:
+    service: script.harmony_listen_to_music
+  id: ee3998b48dc64ae8af71076bc5185845
+
+- alias: Turn on Home Theater for Chromecast
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room_tv
+    to: playing
+  action:
+    service: script.harmony_watch_chromecast
+  id: 0ff367f3da6948fa8e2633b347ec2ae7
+
+- alias: Turn off Home Theater for Chromecast
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room_tv
+    to: 'off'
+  action:
+    service: script.harmony_poweroff
+  id: 5834a54bf1e4408b877881c36941161d
+
+- alias: Bedtime for Nina
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '20:30:00'
+  action:
+    service: tts.google_say
+    entity_id: media_player.living_room_speaker,media_player.bedroom_speaker,media_player.master_bedroom_speaker,media_player.master_bathroom
+    data:
+      message: ' Nina, este timpul să te culci. '
+      language: ro
+  id: ee161d7b3c9b4890931aa67ec218bc0e
+
+- alias: Schooltime for Nina
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: 08:00:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+    service: tts.google_say
+    entity_id: media_player.living_room_speaker,media_player.bedroom_speaker,media_player.master_bedroom_speaker,media_player.master_bathroom
+    data:
+      message: ' Nina, este timpul să mergi la grădiniță. '
+      language: ro
+  id: 32c2b9ffa995481ba3bf0e5884a0289b
+
+- alias: Front Door Opened Florin
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor
+    to: 'on'
+  action:
+  - delay:
+      seconds: 7
+  - service: notify.telegram_florin
+    data:
+      title: Front Door Opened
+      message: Your front door has been opened.
+      data:
+        photo:
+        - url: !secret front_door_camera_snap
+  id: 50e3500d99f54d0b9bdf5fed32a2ae48
+
+- alias: Front Door Opened Florin iPad
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor
+    to: 'on'
+  action:
+  - delay:
+      seconds: 7
+  - service: notify.ios_florin_ipad
+    data:
+      message: The front door has been opened
+      data:
+        attachment:
+          url: !secret front_door_camera_snap
+          content-type: jpg
+          hide-thumbnail: false
+  id: 8519957975464be389a2d5a401565291
+
+- alias: Front Door Opened Mihaela iPhone
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor
+    to: 'on'
+  action:
+  - delay:
+      seconds: 7
+  - service: notify.ios_mihaelas_iphone
+    data:
+      message: The front door has been opened
+      data:
+        attachment:
+          url: !secret front_door_camera_snap
+          content-type: jpg
+          hide-thumbnail: false
+  id: b5e68aeeb5b74452a3929f71dae9972d
+
+- alias: Yard Cover Morning Mode
+  initial_state: 'on'
+  trigger:
+    platform: sun
+    event: sunrise
+    offset: -00:15:00
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_4
+      position: 100
+  id: 303454024b7044a19e53547b33f64866
+
+- id: '1543693342240'
+  alias: Turn Off Thermostat if Windows Open
+  initial_state: 'on'
+  trigger:
+  - entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_6
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_6
+    state: 'on'
+  action:
+  - data:
+      entity_id: climate.netatmo_master_bedroom
+      temperature: 17
+    service: climate.set_temperature
+
+- id: '1543694578433'
+  alias: Turn On Thermostat if Windows Closed
+  initial_state: 'on'  
+  trigger:
+  - entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+    platform: state
+    to: 'off'
+  - entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_6
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_6
+    state: 'off'
+  action:
+  - data:
+      entity_id: climate.netatmo_master_bedroom
+      temperature: 22
+    service: climate.set_temperature
+
+- alias: Counter Lights On
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: dimmer_switch
+      event: 2001
+  action:
+    service: switch.turn_on
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch
+
+- alias: Counter Lights Off
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: dimmer_switch
+      event: 3001
+  action:
+    service: switch.turn_off
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch
+
+#- alias: Turn On Ceiling Light from Wall Switch
+#  initial_state: 'on'
+#  trigger:
+#    platform: event
+#    event_type: zwave.scene_activated
+#    event_data:
+#      entity_id: zwave.popp_009303_battery_wall_controller_3
+#      scene_id: 11
+#  action:
+#  - service: light.turn_on
+#    entity_id: light.ceiling_light
+    
+- alias: Turn On Flexible Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_3
+      scene_id: 21
+  action:
+  - service: switch.turn_on
+    entity_id: switch.greenwave_powernode_6_port_switch_3
+
+- alias: Turn On Color Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_3
+      scene_id: 12
+  action:
+  - service: light.turn_on
+    entity_id: light.color_lamp_2
+
+- alias: Turn On Moon Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_3
+      scene_id: 22
+  action:
+  - service: light.turn_on
+    entity_id: light.moon_lamp
+
+#- alias: Turn Off Ceiling Light from Wall Switch
+#  initial_state: 'on'
+#  trigger:
+#    platform: event
+#    event_type: zwave.scene_activated
+#    event_data:
+#      entity_id: zwave.popp_009303_battery_wall_controller_3
+#      scene_id: 13
+#  action:
+#  - service: light.turn_off
+#    entity_id: light.ceiling_light
+    
+- alias: Turn Off Flexible Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_3
+      scene_id: 23
+  action:
+  - service: switch.turn_off
+    entity_id: switch.greenwave_powernode_6_port_switch_3
+
+- alias: Turn Off Color Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_3
+      scene_id: 14
+  action:
+  - service: light.turn_off
+    entity_id: light.color_lamp_2
+
+- alias: Turn Off Moon Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_3
+      scene_id: 24
+  action:
+  - service: light.turn_off
+    entity_id: light.moon_lamp
+
+- alias: Turn On Kitchen Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_4
+      scene_id: 11
+  action:
+  - service: light.turn_on
+    entity_id: light.kitchen_lamp
+    
+- alias: Turn On Counter Lights from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_4
+      scene_id: 21
+  action:
+  - service: switch.turn_on
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch
+
+- alias: Turn On Dining Area Light from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_4
+      scene_id: 12
+  action:
+  - service: light.turn_on
+    entity_id: light.dining_area_light_2
+
+- alias: Turn On Floor Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_4
+      scene_id: 22
+  action:
+  - service: light.turn_on
+    entity_id: light.nina_s_room_ceiling_light
+
+- alias: Turn Off Kitchen Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_4
+      scene_id: 13
+  action:
+  - service: light.turn_off
+    entity_id: light.kitchen_lamp
+    
+- alias: Turn Off Counter Lights from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_4
+      scene_id: 23
+  action:
+  - service: switch.turn_off
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch
+
+- alias: Turn Off Dining Area Light from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_4
+      scene_id: 14
+  action:
+  - service: light.turn_off
+    entity_id: light.dining_area_light_2
+
+- alias: Turn Off Floor Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_4
+      scene_id: 24
+  action:
+  - service: light.turn_off
+    entity_id: light.nina_s_room_ceiling_light
+
+- alias: Turn On Red's Desk Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_5
+      scene_id: 11
+  action:
+  - service: switch.turn_on
+    entity_id: switch.greenwave_reality_inc_powernode_6_port_switch_5
+    
+- alias: Turn On Red's Bedroom Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_5
+      scene_id: 21
+  action:
+  - service: switch.turn_on
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_3
+
+- alias: Turn On Florin's Bedroom Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_5
+      scene_id: 12
+  action:
+  - service: switch.turn_on
+    entity_id: switch.florin_s_bedroom_lamp
+
+- alias: Turn On All Master Bedroom Lights from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_5
+      scene_id: 22
+  action:
+  - service: switch.turn_on
+    entity_id: switch.greenwave_reality_inc_powernode_6_port_switch_5, switch.fibaro_system_fgwpef_wall_plug_switch_3, switch.florin_s_bedroom_lamp
+
+- alias: Turn Off Red's Desk Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_5
+      scene_id: 13
+  action:
+  - service: switch.turn_off
+    entity_id: switch.greenwave_reality_inc_powernode_6_port_switch_5
+    
+- alias: Turn Off Red's Bedroom Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_5
+      scene_id: 23
+  action:
+  - service: switch.turn_off
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_3
+
+- alias: Turn Off Florin's Bedroom Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_5
+      scene_id: 14
+  action:
+  - service: switch.turn_off
+    entity_id: switch.florin_s_bedroom_lamp
+
+- alias: Turn Off All Master Bedroom Lights from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_5
+      scene_id: 24
+  action:
+  - service: switch.turn_off
+    entity_id: switch.greenwave_reality_inc_powernode_6_port_switch_5, switch.fibaro_system_fgwpef_wall_plug_switch_3, switch.florin_s_bedroom_lamp
+
+- alias: Turn On Bread Maker from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_7
+      scene_id: 11
+  action:
+  - service: switch.turn_on
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_6
+
+- alias: Turn Off Bread Maker from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_7
+      scene_id: 13
+  action:
+  - service: switch.turn_off
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_6
+
+- alias: Turn On Counter Lights from Refrigerator Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_7
+      scene_id: 22
+  action:
+  - service: switch.turn_on
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch
+
+- alias: Turn Off Counter Lights from Refrigerator Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_7
+      scene_id: 24
+  action:
+  - service: switch.turn_off
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch
+
+- alias: Turn On Red's Desk Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_8
+      scene_id: 11
+  action:
+  - service: switch.turn_on
+    entity_id: switch.greenwave_reality_inc_powernode_6_port_switch_5
+    
+- alias: Turn On Red's Bedroom Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_8
+      scene_id: 21
+  action:
+  - service: switch.turn_on
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_3
+
+- alias: Turn On Florin's Bedroom Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_8
+      scene_id: 12
+  action:
+  - service: switch.turn_on
+    entity_id: switch.florin_s_bedroom_lamp
+
+- alias: Turn On All Master Bedroom Lights from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_8
+      scene_id: 22
+  action:
+  - service: switch.turn_on
+    entity_id: switch.greenwave_reality_inc_powernode_6_port_switch_5, switch.fibaro_system_fgwpef_wall_plug_switch_3, switch.florin_s_bedroom_lamp
+
+- alias: Turn Off Red's Desk Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_8
+      scene_id: 13
+  action:
+  - service: switch.turn_off
+    entity_id: switch.greenwave_reality_inc_powernode_6_port_switch_5
+    
+- alias: Turn Off Red's Bedroom Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_8
+      scene_id: 23
+  action:
+  - service: switch.turn_off
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_3
+
+- alias: Turn Off Florin's Bedroom Lamp from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_8
+      scene_id: 14
+  action:
+  - service: switch.turn_off
+    entity_id: switch.florin_s_bedroom_lamp
+
+- alias: Turn Off All Master Bedroom Lights from Wall Switch
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_8
+      scene_id: 24
+  action:
+  - service: switch.turn_off
+    entity_id: switch.greenwave_reality_inc_powernode_6_port_switch_5, switch.fibaro_system_fgwpef_wall_plug_switch_3, switch.florin_s_bedroom_lamp
+
+- alias: Away Mode
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_6
+      scene_id: 11
+  action:
+  - service: switch.turn_off
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch, switch.florin_s_bedroom_lamp,switch.greenwave_reality_inc_powernode_6_port_switch_5,switch.fibaro_system_fgwpef_wall_plug_switch_3
+  - service: light.turn_off
+    entity_id: light.kitchen_lamp,light.dining_area_light_2,light.small_bathroom_light_2,light.master_bathroom_light_2,light.ceiling_light,light.color_lamp_2,light.reds_bedroom_lamp_2,light.moon_lamp,light.domitech_smart_led_retrofit_kit_ze27eu_level_2
+#  - service: cover.close_cover
+#    entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_4
+  - service: script.turn_on
+    entity_id: script.living_room_camera_room_view,script.master_bedroom_camera_room_view,script.yard_camera_yard_view
+
+- alias: Home Mode
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: zwave.scene_activated
+    event_data:
+      entity_id: zwave.popp_009303_battery_wall_controller_6
+      scene_id: 21
+  action:
+  - service: light.turn_on
+    entity_id: light.dining_area_light_2, light.kitchen_lamp
+#  - service: cover.open_cover
+#    entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_4
+  - service: script.turn_on
+    entity_id: script.living_room_camera_back_to_wall,script.master_bedroom_camera_back_to_wall,script.yard_camera_back_to_wall
+
+- alias: Turn off Humidifier When Too Humid
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.broadlink_sensor_humidity
+    above: 55
+  action:
+    service: homeassistant.turn_off
+    data:
+      entity_id: switch.greenwave_powernode_6_port_switch
+
+- alias: Harmony Monitor
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: remote.living_room
+    to: 'unavailable'
+  action:
+    - service: remote.harmony_sync
+      entity_id: remote.living_room
+
+- alias: Set washing machine Running when power detected
+  initial_state: 'on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.fibaro_system_fgwpe_f_wall_plug_power_2
+      above: 2
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.washing_machine_status
+        option: Running
+
+- alias: Set washing machine Finishing when power drops
+  initial_state: 'on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.fibaro_system_fgwpe_f_wall_plug_power_2
+      below: 2
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.washing_machine_status
+        state: Running
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.washing_machine_status
+        option: Finishing
+
+- alias: Set washing machine Idle after Finishing
+  initial_state: 'on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.fibaro_system_fgwpe_f_wall_plug_power_2
+      below: 1.5
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.washing_machine_status
+        state: Finishing
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.washing_machine_status
+        option: Idle
+
+- alias: Send alert when Washing Machine is Finishing
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_select.washing_machine_status
+      to: Finishing
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.washing_machine_status
+        state: Finishing
+  action:
+    - service: notify.telegram_florin
+      data:
+        message: 'The Washing Machine has finished and is ready to be emptied!'
+    - service: notify.telegram_mihaela
+      data:
+        message: 'The Washing Machine has finished and is ready to be emptied!'
+
+#- alias: Set Home Mode When Florin Home
+#  initial_state: 'on'  
+#  trigger:
+#  - entity_id: device_tracker.tile
+#    platform: state
+#    to: home
+#  condition:
+#  - condition: state
+#    entity_id: device_tracker.tile_2
+#    state: not_home
+#  action:
+#    service: script.home_mode
+
+#- alias: Set Home Mode When Mihaela Home
+#  initial_state: 'on'  
+#  trigger:
+#  - entity_id: device_tracker.tile_2
+#    platform: state
+#    to: home
+#  condition:
+#  - condition: state
+#    entity_id: device_tracker.tile
+#    state: not_home
+#  action:
+#    service: script.home_mode
+
+- alias: Florin Away
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: device_tracker.florin_tile
+    to: not_home
+  action:
+  - service: notify.telegram_florin
+    data:
+      message: Florin is Away
+
+- alias: Florin Home
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: device_tracker.florin_tile
+    to: home
+  action:
+  - service: notify.telegram_florin
+    data:
+      message: Florin is Home
+
+- alias: Mihaela Away
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: device_tracker.mihaela_tile
+    to: not_home
+  action:
+  - service: notify.telegram_florin
+    data:
+      message: Mihaela is Away
+
+- alias: Mihaela Home
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: device_tracker.mihaela_tile
+    to: home
+  action:
+  - service: notify.telegram_florin
+    data:
+      message: Mihaela is Home
+
+- alias: Mihaela Left House Empty
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.mihaela_tile
+      to: not_home
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: device_tracker.florin_tile
+        state: not_home
+  action:
+    - service: script.turn_on
+      entity_id: script.living_room_camera_room_view,script.master_bedroom_camera_room_view,script.yard_camera_yard_view
+      
+- alias: Florin Left House Empty
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.florin_tile
+      to: not_home
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: device_tracker.mihaela_tile
+        state: not_home
+  action:
+    - service: script.turn_on
+      entity_id: script.living_room_camera_room_view,script.master_bedroom_camera_room_view,script.yard_camera_yard_view
+
+- alias: Mihaela First Back Home
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.mihaela_tile
+      to: home
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: device_tracker.florin_tile
+        state: not_home
+  action:
+    - service: script.turn_on
+      entity_id: script.living_room_camera_back_to_wall,script.master_bedroom_camera_back_to_wall,script.yard_camera_back_to_wall
+      
+- alias: Florin First Back Home
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.florin_tile
+      to: home
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: device_tracker.mihaela_tile
+        state: not_home
+  action:
+    - service: script.turn_on
+      entity_id: script.living_room_camera_back_to_wall,script.master_bedroom_camera_back_to_wall,script.yard_camera_back_to_wall
+
+- alias: Monitor Script Offline Check
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: sensor.monitor_script_status
+      to: offline
+  action:
+    - service: notify.telegram_florin
+      data:
+        message: Monitor Script is Offline.
+
+- alias: Turn on Bright Master Bathroom light when there is movement
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '16:00:00'
+        before: '22:00:00'
+  action:
+    service: homeassistant.turn_on
+    data:
+      entity_id: light.master_bathroom_light_2
+      brightness: 254
+
+- alias: Turn on Dim Master Bathroom light when there is movement
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '22:00:00'
+        before: '08:00:00'
+  action:
+    service: homeassistant.turn_on
+    data:
+      entity_id: light.master_bathroom_light_2
+      brightness: 70
+  id: 4df27d95d1b74caf8528aefc88dada26
+
+- alias: Turn off Master Bathroom light 10 minutes after last movement
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+    to: 'off'
+    for:
+      minutes: 10
+  action:
+    service: homeassistant.turn_off
+    entity_id: light.master_bathroom_light_2
+  id: 78bac49443994718a1616a6c089904cf
+
+- alias: Turn on Bright Small Bathroom light when there is movement
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_3
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '16:00:00'
+        before: '22:00:00'
+  action:
+    service: homeassistant.turn_on
+    data:
+      entity_id: light.small_bathroom_light_2
+      brightness: 254
+  id: f5de3877efd644f5bad7788d8e3c1ac7
+
+- alias: Turn on Dim Small Bathroom light when there is movement
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_3
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '22:00:00'
+        before: '08:00:00'
+  action:
+    service: homeassistant.turn_on
+    data:
+      entity_id: light.small_bathroom_light_2
+      brightness: 70
+
+- alias: Turn off Small Bathroom light 10 minutes after last movement
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_3
+    to: 'off'
+    for:
+      minutes: 10
+  condition:
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.aeotec_zw100_multisensor_6_relative_humidity
+        below: 70
+  action:
+    service: homeassistant.turn_off
+    entity_id: light.small_bathroom_light_2
+  id: f4894dc69c7b440cb029c6e39e188311
+
+- alias: Living Room Afternoon AC
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '18:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  - condition: state
+    entity_id: group.people_away
+    state: 'not_home'
+  - condition: numeric_state
+    entity_id: sensor.living_room_temperature
+    above: 26
+  action:
+    service: script.living_room_aircon_on
+
+- alias: Home Security Notification
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_5
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_6
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_7
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_8
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_9
+      to: 'on'
+
+  condition:
+  - condition: state
+    entity_id: group.people_away
+    state: 'not_home'
+  action:
+  - service: notify.telegram_florin
+    data:
+      title: Security Alert
+      message: Check Your Home
+      data:
+        photo:
+        - url: !secret front_door_camera_snap
+        - url: !secret master_bedroom_camera_snap
+        - url: !secret ninas_room_camera_snap
+        - url: !secret yard_camera_snap
+
+  - service: notify.telegram_mihaela
+    data:
+      title: Security Alert
+      message: Check Your Home
+      data:
+        photo:
+        - url: !secret front_door_camera_snap
+        - url: !secret master_bedroom_camera_snap
+        - url: !secret ninas_room_camera_snap
+        - url: !secret yard_camera_snap
+
+- alias: control_washing_machine
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/fibaro_system_fgwpe_f_wall_plug_switch/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.fibaro_system_fgwpe_f_wall_plug_switch
+
+- alias: control_counter_lights
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/fibaro_system_fgwpef_wall_plug_switch/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch
+
+- alias: control_reds_desk_lamp
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/fibaro_system_fgwpef_wall_plug_switch_2/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_2
+
+- alias: control_reds_bedroom_lamp
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/fibaro_system_fgwpef_wall_plug_switch_3/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_3
+
+- alias: control_sandwich_maker
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/fibaro_system_fgwpef_wall_plug_switch_4/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_4
+
+- alias: control_reds_workstation
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/fibaro_system_fgwpef_wall_plug_switch_5/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_5
+
+- alias: control_bread_maker
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/fibaro_system_fgwpef_wall_plug_switch_6/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_6
+
+- alias: control_master_bedroom_siren
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/aeotec_zw080_siren_gen5_switch/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.aeotec_zw080_siren_gen5_switch
+
+- alias: control_air_humidifier
+  trigger:
+  - platform: mqtt
+    topic: "ha_master_topic/switch/greenwave_powernode_6_port_switch/set"
+  action:
+  - service_template: "switch.turn_{{trigger.payload | lower}}"
+    entity_id: switch.greenwave_powernode_6_port_switch
+
+#- alias: control_street_window_shutter
+#  trigger:
+#  - platform: mqtt
+#    topic: "ha_master_topic/cover/fibaro_system_fgrm222_roller_shutter_controller_2_level/set"
+#  action:
+#  - service_template: "cover.turn_{{trigger.payload | lower}}"
+#    entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level
+
+
+- alias: mqtt_cover_toggle
+  trigger:
+    - platform: mqtt
+      topic: 'ha_master_topic/cover/#'
+  condition:
+    condition: template
+    value_template:  "{{ trigger.topic.split('/')[3] == 'set' }}"
+  action:
+    - service_template: "cover.{{trigger.payload | lower }}_cover"
+      data_template:
+        entity_id: "{{ trigger.topic.split('/')[1] }}.{{ trigger.topic.split('/')[2] }}"

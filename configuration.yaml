@@ -1,0 +1,297 @@
+homeassistant:
+
+  customize: !include customize.yaml
+
+frontend:
+  themes: !include themes.yaml
+
+config:
+
+http:
+  use_x_forwarded_for: True
+  trusted_proxies:
+   - 127.0.0.1
+  base_url: !secret base_url
+
+updater:
+
+discovery:
+
+conversation:
+
+history:
+
+logbook:
+
+map:
+
+sun:
+
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+
+device_tracker:
+  - platform: linksys_smart
+    host: !secret router_host
+    new_device_defaults:
+      track_new_devices: True
+      hide_if_away: False
+  
+  - platform: mqtt
+    devices:
+      florin_tile: !secret florin_tile_mac
+      mihaela_tile: !secret mihaela_tile_mac
+
+camera:
+  - platform: onvif
+    host: !secret living_room_camera_host
+    name: Living Room
+    username: !secret living_room_camera_user 
+    password: !secret living_room_camera_pass
+
+camera 2:    
+  - platform: onvif
+    host: !secret master_bedroom_camera_host
+    name: Master Bedroom
+    username: !secret master_bedroom_camera_user
+    password: !secret master_bedroom_camera_pass
+
+camera 3:
+  - platform: generic
+    still_image_url: !secret ninas_room_camera_host
+    stream_source: !secret ninas_room_stream_host
+    name: Nina's Room
+    username: !secret ninas_room_camera_user
+    password: !secret ninas_room_camera_pass
+
+camera 4:
+  - platform: onvif
+    host: !secret yard_camera_host
+    name: Yard
+    username: !secret yard_camera_user
+    password: !secret yard_camera_pass
+
+switch:
+
+  - platform: broadlink
+    host: !secret living_room_ir_host
+    type: rm_mini
+    mac: !secret living_room_ir_mac
+    timeout: 15
+    switches:
+      aircon_living_room:
+        friendly_name: "Living Room AC"
+        command_on: 'JgCSAAABJ5MWNhYRFhIWNRYSFhEWEhYSFjUWEhYRFjYWERYSFhIWERYSFhEWEhYRFhIWNRcRFhIWERYSFhEWEhY1FxEWNRcRFhIWNRYSFgACkBcRFhIWERYSFhEWEhYRFxEWERcRFhIWERYSFjUWEhYRFxEWEhYRFhIWERYSFhEXERYRFxEWEhYRFhIWNRY2FjUXAA0FAAAAAAAA'
+        command_off: 'JgCSAAABKZIXNRYSFhEWEhYRFxEWERcRFjYWERYSFjUXERYRFxEWEhYRFhIWERYSFhEXNRYSFhEWEhYRFhIWERc1FhEXNRYSFhEWNhYRFwACkBYRFxEWEhYRFhIWERYSFhEXERYRFxEWEhYRFjYWERcRFhEXERYSFhEWEhYRFhIWERYSFhEXERYSFhEWNhY1FhIWAA0FAAAAAAAA'
+
+remote:
+  - platform: harmony
+    name: Living Room
+    host: !secret harmony_host
+
+netatmo:
+  api_key: !secret netatmo_api_key
+  secret_key: !secret netatmo_secret_key
+  username: !secret netatmo_user
+  password: !secret netatmo_pass
+
+weather:
+  - platform: darksky
+    api_key: !secret darksky_api_key
+                      
+zone:
+
+  - name: Home
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 20
+    icon: mdi:home
+
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_api_key
+    allowed_chat_ids:
+      - !secret florin_chat_id
+      - !secret mihaela_chat_id
+      
+notify: 
+  
+  - name: telegram_florin
+    platform: telegram
+    chat_id: !secret florin_chat_id
+  
+  - name: telegram_mihaela
+    platform: telegram
+    chat_id: !secret mihaela_chat_id
+
+ffmpeg:
+
+influxdb:
+  host: !secret influxdb_host
+  port: !secret influxdb_port
+  database: !secret influxdb_db
+  username: !secret influxdb_user
+  password: !secret influxdb_pass
+  max_retries: 3
+  default_measurement: state
+
+panel_iframe:
+
+  grafana:
+    title: Grafana
+    icon: mdi:chart-timeline
+    url: !secret grafana_host
+
+rest_command:
+  living_room_camera_up:
+    url: !secret living_room_camera_up_rest
+  living_room_camera_down:
+    url: !secret living_room_camera_down_rest
+  living_room_camera_left:
+    url: !secret living_room_camera_left_rest
+  living_room_camera_right:
+    url: !secret living_room_camera_right_rest
+  living_room_camera_back_to_wall:
+    url: !secret living_room_camera_back_to_wall_rest
+  living_room_camera_room_view:
+    url: !secret living_room_camera_room_view_rest
+  master_bedroom_camera_up:
+    url: !secret master_bedroom_camera_up_rest
+  master_bedroom_camera_down:
+    url: !secret master_bedroom_camera_down_rest
+  master_bedroom_camera_left:
+    url: !secret master_bedroom_camera_left_rest
+  master_bedroom_camera_right:
+    url: !secret master_bedroom_camera_right_rest
+  master_bedroom_camera_back_to_wall:
+    url: !secret master_bedroom_camera_back_to_wall_rest
+  master_bedroom_camera_room_view:
+    url: !secret master_bedroom_room_view_rest
+  yard_camera_up:
+    url: !secret yard_camera_up_rest
+  yard_camera_down:
+    url: !secret yard_camera_down_rest
+  yard_camera_left:
+    url: !secret yard_camera_left_rest
+  yard_camera_right:
+    url: !secret yard_camera_right_rest
+  yard_camera_back_to_wall:
+    url: !secret yard_camera_back_to_wall_rest
+  yard_camera_yard_view:
+    url: !secret yard_yard_view_rest
+
+recorder:
+
+  exclude:
+    entities:
+      - sensor.fibaro_system_fgrm222_roller_shutter_controller_2_exporting
+      - sensor.fibaro_system_fgrm222_roller_shutter_controller_2_exporting_2
+      - sensor.fibaro_system_fgrm222_roller_shutter_controller_2_exporting_5
+      - sensor.fibaro_system_fgrm222_roller_shutter_controller_2_exporting_7
+      - sensor.fibaro_system_fgwpef_wall_plug_exporting
+      - sensor.fibaro_system_fgwpef_wall_plug_exporting_2
+      - sensor.fibaro_system_fgwpef_wall_plug_exporting_3
+      - sensor.fibaro_system_fgwpef_wall_plug_exporting_4
+      - sensor.fibaro_system_fgwpef_wall_plug_exporting_5
+      - sensor.fibaro_system_fgwpef_wall_plug_exporting_6
+      - sensor.fibaro_system_fgwpe_f_wall_plug_exporting
+
+input_select:
+
+  washing_machine_status:
+    name: Washing Machine Status
+    options:
+      - Idle
+      - Running
+      - Finishing
+    initial: Idle
+
+plant:
+  zamioculcas_zamiifolia:
+    sensors:
+      moisture: sensor.hall_plant_moisture
+      battery: sensor.hall_plant_battery
+      temperature: sensor.hall_plant_temperature
+      conductivity: sensor.hall_plant_conductivity
+      brightness: sensor.hall_plant_light_intensity
+
+system_health:
+
+speedtestdotnet:
+
+person:
+
+default_config:
+
+logger:
+  default: error
+  logs:
+    btlewrap: debug
+    bluepy: debug
+
+yeelight:
+  devices:
+    REDACTED_IP:
+      name: Floor Lamp
+    REDACTED_IP:
+      name: Light Strip
+    REDACTED_IP:
+      name: Nina's Table Lamp
+
+hacs:
+  token: REDACTED_TOKEN
+
+mqtt_statestream:
+  base_topic: ha_master_topic
+  publish_attributes: true
+  publish_timestamps: true
+  include:
+    entities:
+      - switch.fibaro_system_fgwpef_wall_plug_switch_5
+      - switch.aeotec_zw080_siren_gen5_switch
+      - switch.fibaro_system_fgwpe_f_wall_plug_switch
+      - switch.fibaro_system_fgwpef_wall_plug_switch
+      - switch.fibaro_system_fgwpef_wall_plug_switch_2
+      - switch.fibaro_system_fgwpef_wall_plug_switch_3
+      - switch.fibaro_system_fgwpef_wall_plug_switch_4
+      - switch.fibaro_system_fgwpef_wall_plug_switch_6
+      - switch.greenwave_powernode_6_port_switch
+      - binary_sensor.aeotec_zw100_multisensor_6_sensor
+      - binary_sensor.fibaro_system_fgfs101_flood_sensor_flood
+      - binary_sensor.fibaro_system_fgfs101_flood_sensor_flood_2
+      - binary_sensor.fibaro_system_fgfs101_flood_sensor_flood_3
+      - binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor
+      - binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_2
+      - binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+      - binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_5
+      - binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_6
+      - binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_7
+      - binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_8
+      - binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_9
+      - binary_sensor.fibaro_system_fgms001_motion_sensor_sensor
+      - binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+      - binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_3
+      - binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_4
+      - binary_sensor.fibaro_system_fgsd002_smoke_sensor_sensor
+      - cover.fibaro_system_fgrm222_roller_shutter_controller_2_level
+      - cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_2
+      - cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_4
+      - cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_6
+      - light.domitech_smart_led_retrofit_kit_ze27eu_level_2
+      - sensor.aeotec_zw100_multisensor_6_temperature
+      - sensor.fibaro_system_fgms001_motion_sensor_temperature
+      - sensor.fibaro_system_fgms001_motion_sensor_temperature_2
+
+light:
+  - platform: group
+    name: Master Bathroom Lights
+    entities:
+      - light.master_bathroom_light_2

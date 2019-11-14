@@ -1,0 +1,211 @@
+  - platform: broadlink
+    scan_interval: 60
+    host: !secret broadlink_a1_host
+    mac: !secret broadlink_a1_mac
+    monitored_conditions:
+      - temperature
+      - humidity
+      - air_quality
+      - light
+      - noise
+
+  - platform: template
+    sensors:
+      living_room_air_quality_name:
+        friendly_name: "Air Quality"
+        entity_id: sensor.broadlink_sensor_air_quality
+        value_template: "{%if states.sensor.broadlink_sensor_air_quality.state == '0' %}Excellent{% elif states.sensor.broadlink_sensor_air_quality.state == '1' %}Good{% elif states.sensor.broadlink_sensor_air_quality.state == '2' %}Normal{% elif states.sensor.broadlink_sensor_air_quality.state == '3' %}Bad{% endif %}"
+
+  - platform: template
+    sensors:
+      living_room_light_name:
+        friendly_name: "Living Room Light"
+        entity_id: sensor.broadlink_sensor_light
+        value_template: "{%if states.sensor.broadlink_sensor_light.state == '0' %}Dark{% elif states.sensor.broadlink_sensor_light.state == '1' %}Dim{% elif states.sensor.broadlink_sensor_light.state == '2' %}Normal{% elif states.sensor.broadlink_sensor_light.state == '3' %}Bright{% endif %}"
+
+  - platform: template
+    sensors:
+      living_room_noise_name:
+        friendly_name: "Living Room Noise"
+        entity_id: sensor.broadlink_sensor_noise
+        value_template: "{%if states.sensor.broadlink_sensor_noise.state == '0' %}Quiet{% elif states.sensor.broadlink_sensor_noise.state == '1' %}Normal{% elif states.sensor.broadlink_sensor_noise.state == '2' %}Noisy{% endif %}"
+
+  - platform: template
+    sensors:
+      kitchen_smoke_detector_battery_level:
+        friendly_name: "Kitchen Smoke Detector Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgsd002_smoke_sensor.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      master_bathroom_flood_sensor_battery_level:
+        friendly_name: "Master Bathroom Flood Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgfs101_flood_sensor_3.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      small_bathroom_flood_sensor_battery_level:
+        friendly_name: "Small Bathroom Flood Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgfs101_flood_sensor.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      kitchen_flood_sensor_battery_level:
+        friendly_name: "Kitchen Flood Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgfs101_flood_sensor_4.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      living_room_multisensor_battery_level:
+        friendly_name: "Living Room MultiSensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgms001_motion_sensor.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      master_bathroom_multisensor_battery_level:
+        friendly_name: "Master Bathroom MultiSensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgms001_motion_sensor_2.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      small_bathroom_multisensor_battery_level:
+        friendly_name: "Small Bathroom MultiSensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgms001_motion_sensor_3.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      living_room_yard_door_sensor_battery_level:
+        friendly_name: "Living Room Yard Door Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgk101_door_opening_sensor_7.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: moon
+
+  - platform: waqi
+    token: !secret waqi_token
+    locations:
+      - Calea Victoriei, Cercul Militar, Romania
+    stations:
+      - Calea Victoriei, Cercul Militar, Romania
+
+  - platform: template
+    sensors:
+      master_bathroom_window_sensor_battery_level:
+        friendly_name: "Master Bathroom Window Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgk101_door_opening_sensor_4.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      small_bathroom_window_sensor_battery_level:
+        friendly_name: "Small Bathroom Window Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgk101_door_opening_sensor_5.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      master_bedroom_window_sensor_battery_level:
+        friendly_name: "Master Bedroom Window Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgk101_door_opening_sensor_6.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      yard_pantry_door_sensor_battery_level:
+        friendly_name: "Yard Pantry Door Sensor Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgk101_door_opening_sensor_8.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      living_room_front_door_sensor_battery_level:
+        friendly_name: "Living Room Front Door Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgk101_door_opening_sensor.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      living_room_street_window_sensor_battery_level:
+        friendly_name: "Living Room Street Window Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgk101_door_opening_sensor_2.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      ninas_room_window_sensor_battery_level:
+        friendly_name: "Nina's Room Window Sensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgk101_door_opening_sensor_9.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      master_bedroom_multisensor_battery_level:
+        friendly_name: "Master Bedroom MultiSensor Battery"
+        value_template: '{{ states.zwave.fibaro_system_fgms001_motion_sensor_4.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      ninas_room_wall_remote_battery_level:
+        friendly_name: "Nina's Room Wall Remote Battery"
+        value_template: '{{ states.zwave.popp_009303_battery_wall_controller_3.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      living_room_wall_remote_battery_level:
+        friendly_name: "Living Room Wall Remote Battery"
+        value_template: '{{ states.zwave.popp_009303_battery_wall_controller_4.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      master_bedroom_wall_remote_battery_level:
+        friendly_name: "Master Bedroom Wall Remote Battery"
+        value_template: '{{ states.zwave.popp_009303_battery_wall_controller_5.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      entrance_wall_remote_battery_level:
+        friendly_name: "Entrance Wall Remote Battery"
+        value_template: '{{ states.zwave.popp_009303_battery_wall_controller_6.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: template
+    sensors:
+      refrigerator_remote_battery_level:
+        friendly_name: "Refrigerator Remote Battery"
+        value_template: '{{ states.zwave.popp_009303_battery_wall_controller_7.attributes.battery_level }}'
+        unit_of_measurement: '%'
+  
+  - platform: template
+    sensors:
+      florins_wall_remote_battery_level:
+        friendly_name: "Florin's Wall Remote Battery"
+        value_template: '{{ states.zwave.popp_009303_battery_wall_controller_8.attributes.battery_level }}'
+        unit_of_measurement: '%'
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_use_percent
+      - type: processor_use
+      - type: last_boot
+
+  - platform: mqtt
+    state_topic: 'monitor/tile_scan/status'
+    name: Monitor Script Status
+
+  - platform: qbittorrent
+    url: REDACTED
+    username: !secret qbittorrent_user
+    password: !secret qbittorrent_pass
