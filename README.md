@@ -4,7 +4,7 @@ Since discovering Home Assistant in the summer of 2018, it has become my favorit
 
 Here are some screenshots of my configuration, the .yaml of which can be found in the files in this repo: 
 
-1. The main page, which features:
+<b> 1. The main page </b>
 
 - a conditional card, with my currently open doors & windows
 - a gauge card, which I use for humidity at the moment
@@ -31,19 +31,19 @@ Here are some screenshots of my configuration, the .yaml of which can be found i
 <img src="./images/1.1.png" width="1700">
 <img src="./images/1.2.png" width="1700">
 
-2. The camera page
+<b> 2. The camera page </b>
 
 <img src="./images/2.png" width="1700">
 
-3. The media player page
+<b> 3. The media player page </b>
 
 <img src="./images/3.png" width="1700">
 
-4. The "Today" page
+<b> 4. The "Today" page </b>
 
 <img src="./images/4.png" width="1700">
 
-5. The System Administration page
+<b> 5. The System Administration page </b>
 
 <img src="./images/5.1.png" width="1700">
 <img src="./images/5.2.png" width="1700">
