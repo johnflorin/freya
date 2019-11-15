@@ -176,4 +176,4 @@ In order for my kid to be able to change light colors or turn lights on/off, I u
 
 <b> Result: </b>
 
-<img src="./images/tablet.png" width="1700">
+<img src="./images/tablet.jpg" width="1700">
