@@ -42,9 +42,15 @@ Here are some screenshots of my configuration, the .yaml of which can be found i
 
 <b> 3. The media player page </b>
 
+- several Google Home Minis
+
 <img src="./images/3.png" width="1700">
 
 <b> 4. The "Today" page </b>
+
+- WAQI sensor for city air quality
+- moon phases
+- local weather
 
 <img src="./images/4.png" width="1700">
 
