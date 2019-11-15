@@ -4,12 +4,12 @@ Since discovering Home Assistant in the summer of 2018, it has become my favorit
 
 # Infrastructure 
 
-Network hardware:
+<b> Network hardware: </b>
 
 - Linksys WRT1200AC Gigabit router
 - Linksys SE4008 Gigabit switches
 
-Server hardware:
+<b> Server hardware: </b>
 
 - DELL Optiplex 990 SFF (for everything except NAS & presence detection)
   - Intel Core i5 2400 (2nd gen - Sandy Bridge) 3.4GHz
@@ -34,13 +34,14 @@ Server hardware:
   - 650W Seasonic Focus GX PSU
   - Fractal Design Node 804 case
 
-Misc. hardware:
+<b> Misc. hardware: </b>
 
 - Xbox One S
 - Logitech Harmony Home Hub + remote
 - AV receiver
+- iPhone 8, iPad Mini, Samsung S9, Samsung Tab A6
 
-Software:
+<b> Software: </b>
 
 - DELL Optiplex 990 SFF
   - Windows 10
@@ -51,16 +52,31 @@ Software:
   - DeConz
   - Plex
   - QBittorrent
+  - healthchecks.io CRON job for notifying of downtime via Telegram
 
 - Rapsberry Pi 3B+
   - Raspbian
   - Monitor script
   - Pi-Hole
+  - healthchecks.io CRON job for notifying of downtime via Telegram  
 
 - Desktop PC
   - Windows 10
 
-Security:
+- iOS devices:
+  - HA official 2.0 app
+  - Telegram
+  - Blue Iris  
+
+- Android devices:
+  - HA official 1.0 app
+  - Telegram
+  - Blue Iris
+  - Logitech Harmony
+  - Linksys Smart Router
+  - Google Home
+
+<b> Security: </b>
 
 - NGINX
 - MAC filtering
