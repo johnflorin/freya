@@ -33,6 +33,11 @@ Here are some screenshots of my configuration, the .yaml of which can be found i
 
 <b> 2. The camera page </b>
 
+- most of the cameras are ONVIF standard, with PTZ
+- a script turns them around to the wall based on presence detection, for privacy while in the house
+- the REST platform is used for PTZ movements (cheap Chinese cameras, improperly supported at the moment) 
+- the camera cards have buttons on them for position movement & presets
+
 <img src="./images/2.png" width="1700">
 
 <b> 3. The media player page </b>
