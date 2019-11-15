@@ -56,9 +56,26 @@ Software:
 
 Security:
 
-- NGINX HASS.IO addon
+- NGINX
 - MAC filtering
 - WPA2
+
+# HASS.IO addons
+
+- ESPHome: for connecting to my Bluetooth sensors via a NodeMCU ESP32 board
+- Glances: for system monitoring
+- Grafana: for visualisations of sensor history, power usage fingerprinting, etc.
+- Grocy: for grocery & other consumables management
+- HASS.IO Google Drive Backup: for backup of the entire HA instance to my Google Drive
+- InfluxDB: for collecting sensor data to be consumed by Grafana
+- Log Viewer: for easier HA log viewing
+- Mosquitto Broker: for connecting things to HA via MQTT (like the Monitor script for presence detection)
+- Nginx Proxy Manager: for access to the outside world without exposing ports (some addons still don't support Ingress and might never do so)
+- Portainer: for easy Docker container viewing and management
+- SSH & Web Terminal: for access to the HassOS instance 
+- Samba share: for access to the config files from other PCs
+- Tautulli: for Plex viewing stats
+- Visual Studio Code: for config file editing from anywhere
 
 # Lovelace UI screenshots
 
