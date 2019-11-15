@@ -157,3 +157,23 @@ The .yaml for both Lovelace & other config files can be found in the files in th
 <img src="./images/5.1.png" width="1700">
 <img src="./images/5.2.png" width="1700">
 
+# Tablet
+
+In order for my kid to be able to change light colors or turn lights on/off, I use this setup:
+
+<b> Hardware: </b>
+
+- Nexus 7 2013 tablet (only model ever made with wireless charging, as far as I know)
+- Samsung EP-PG900 wireless charger (had it available already, useful for being relatively slim)
+- 3M Command velcro strips (rated for 5.4 kg max. weight support)
+
+<b> Software: </b>
+
+- floorplanner.com for the apartment layout design (love the fact that they have IKEA furniture in their database, so you can find precisely what you have in your house if you're an IKEA fan)
+- Lovelace picture-elements card for displaying the layout
+- Compact Custom Header (CCH) addon for getting rid of the HASS.IO toolbars
+- Fully Kiosk Browser for displaying the browser page with the layout in full-screen mode, with wallpaper-based screensaver turned on (only way I found to have a decent screensaver always on - both while the tablet is charging and when it isn't)
+
+<b> Result: </b>
+
+<img src="./images/tablet.png" width="1700">
