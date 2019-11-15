@@ -4,7 +4,7 @@ Since discovering Home Assistant in the summer of 2018, it has become my favorit
 
 # Infrastructure 
 
-Network:
+Network hardware:
 
 - Linksys WRT1200AC Gigabit router
 - Linksys SE4008 Gigabit switches
@@ -33,6 +33,12 @@ Server hardware:
   - 11TB HDD (4x2TB + 1x3TB)
   - 650W Seasonic Focus GX PSU
   - Fractal Design Node 804 case
+
+Misc. hardware:
+
+- Xbox One S
+- Logitech Harmony Home Hub + remote
+- AV receiver
 
 Software:
 
