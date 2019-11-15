@@ -2,7 +2,67 @@
 
 Since discovering Home Assistant in the summer of 2018, it has become my favorite hobby. 
 
-Here are some screenshots of my configuration, the .yaml of which can be found in the files in this repo: 
+# Infrastructure 
+
+Network:
+
+- Linksys WRT1200AC Gigabit router
+- Linksys SE4008 Gigabit switches
+
+Server hardware:
+
+- DELL Optiplex 990 SFF (for everything except NAS & presence detection)
+  - Intel Core i5 2400 (2nd gen - Sandy Bridge) 3.4GHz
+  - 20GB DDR3-1333 RAM (2x8GB + 2x2GB)
+  - 240GB WD Green SSD
+  - Conbee Zigbee USB adapter
+  - ZWAVE.ME UZB ZWave USB adapter
+  - APC Back-UPS 700VA UPS
+
+- Raspberry Pi 3B+ (for presence detection)
+  - 120GB Kingston UV500 mSATA SSD
+  - 2.5A RPi PSU
+  - 8MP PiNoir2 Camera
+
+- Desktop PC (for gaming & NAS)
+  - Intel Pentium G4400 (6th gen - Skylake) 3.3GHz
+  - ASRock B150M Pro4S/D3 MB
+  - 16GB DDR3-1600 RAM (4x4GB)
+  - ASUS GeForce GTX1050 Ti 4GB GDDR5
+  - 480GB WD Green SSD
+  - 11TB HDD (4x2TB + 1x3TB)
+  - 650W Seasonic Focus GX PSU
+  - Fractal Design Node 804 case
+
+Software:
+
+- DELL Optiplex 990 SFF
+  - Windows 10
+  - Blue Iris
+  - Oracle Virtualbox
+  - Ubuntu Server 18.04 VMs
+  - HASS.IO
+  - DeConz
+  - Plex
+  - QBittorrent
+
+- Rapsberry Pi 3B+
+  - Raspbian
+  - Monitor script
+  - Pi-Hole
+
+- Desktop PC
+  - Windows 10
+
+Security:
+
+- NGINX HASS.IO addon
+- MAC filtering
+- WPA2
+
+# Lovelace UI screenshots
+
+The .yaml for both Lovelace & other config files can be found in the files in this repo. 
 
 <b> 1. The main page </b>
 
