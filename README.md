@@ -43,6 +43,8 @@ Here are some screenshots of my configuration, the .yaml of which can be found i
 <b> 3. The media player page </b>
 
 - several Google Home Minis
+- Chromecast Audio connected to home theater
+- Chromecast Ultra connected to TV
 
 <img src="./images/3.png" width="1700">
 
