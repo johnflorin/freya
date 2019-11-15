@@ -58,6 +58,19 @@ Here are some screenshots of my configuration, the .yaml of which can be found i
 
 <b> 5. The System Administration page </b>
 
+- scripts for notifying users that maintenance is occurring on the server
+- Speedtest for Internet stats
+- qBittorrent plugin for current DL/UL speeds
+- device location based on iOS app
+- CPU, RAM, SSD usage
+- Time since last VM reboot
+- status of Monitor script used on a separate Raspberry Pi 3B+ for presence detection
+- Nabu Casa remote UI status
+- template sensors for ZWave device battery levels
+- ZWave entities for monitoring their status (especially on HASS.IO restart)
+- ZWave power plug consumption
+- Script testing area
+
 <img src="./images/5.1.png" width="1700">
 <img src="./images/5.2.png" width="1700">
 
