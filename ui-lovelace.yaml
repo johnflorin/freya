@@ -7,6 +7,8 @@ excluded_entities:
 resources:
   - type: js
     url: /local/plan-coordinates.js?v=1
+  - type: module
+    url: /community_plugin/compact-custom-header/compact-custom-header.js
 title: Home
 views:
   - cards:
@@ -400,6 +402,8 @@ views:
         id: 61f109e546ee4a9d8506e68a2b20be2d
         title: Apartment
         type: media-control
+      - entity: media_player.living_room_speaker
+        type: media-control
     icon: 'mdi:play-circle'
     id: 3
     title: Media
@@ -549,10 +553,13 @@ views:
         title: Script Tests
         type: entities
       - entities:
-          - entity: device_tracker.mihaelas_iphone
-            name: Mihaela's iPhone
-          - entity: device_tracker.ioans_ipad
+          - entity: sensor.battery_level_3
             name: Florin's iPad
+          - entity: sensor.battery_state_3
+          - entity: sensor.ssid_3
+          - entity: sensor.battery_level
+          - entity: sensor.battery_state
+          - entity: sensor.ssid
         show_header_toggle: false
         title: Devices
         type: entities

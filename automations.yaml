@@ -149,6 +149,10 @@
   trigger:
     platform: time
     at: '20:30:00'
+  condition:
+  - condition: state
+    entity_id: cover.fibaro_system_fgrm222_roller_shutter_controller_2_level_6
+    state: 'open'
   action:
     service: tts.google_say
     entity_id: media_player.living_room_speaker,media_player.bedroom_speaker,media_player.master_bedroom_speaker,media_player.master_bathroom
@@ -224,7 +228,7 @@
   action:
   - delay:
       seconds: 7
-  - service: notify.ios_mihaelas_iphone
+  - service: notify.telegram_mihaela
     data:
       message: The front door has been opened
       data:
@@ -290,6 +294,70 @@
   action:
   - data:
       entity_id: climate.netatmo_master_bedroom
+      temperature: 22
+    service: climate.set_temperature
+
+- alias: Turn Off Master Bathroom Thermostat if Window Open
+  initial_state: 'on'
+  trigger:
+  - entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+    state: 'on'
+  action:
+  - data:
+      entity_id: climate.netatmo_master_bathroom
+      temperature: 17
+    service: climate.set_temperature
+
+- alias: Turn On Master Bathroom Thermostat if Windows Closed
+  initial_state: 'on'  
+  trigger:
+  - entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_4
+    state: 'off'
+  action:
+  - data:
+      entity_id: climate.netatmo_master_bathroom
+      temperature: 20
+    service: climate.set_temperature
+
+- alias: Turn Off Nina's Room Thermostat if Window Open
+  initial_state: 'on'
+  trigger:
+  - entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_9
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_9
+    state: 'on'
+  action:
+  - data:
+      entity_id: climate.netatmo_nina_s_room
+      temperature: 17
+    service: climate.set_temperature
+
+- alias: Turn On Nina's Room Thermostat if Windows Closed
+  initial_state: 'on'  
+  trigger:
+  - entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_9
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.fibaro_system_fgk101_door_opening_sensor_sensor_9
+    state: 'off'
+  action:
+  - data:
+      entity_id: climate.netatmo_nina_s_room
       temperature: 22
     service: climate.set_temperature
 
@@ -1027,8 +1095,11 @@
     condition: and
     conditions:
       - condition: time
-        after: '16:00:00'
+        after: '08:00:00'
         before: '22:00:00'
+      - condition: numeric_state
+        entity_id: sensor.fibaro_system_fgms001_motion_sensor_luminance_2
+        below: 30
   action:
     service: homeassistant.turn_on
     data:
@@ -1054,6 +1125,7 @@
       brightness: 70
   id: 4df27d95d1b74caf8528aefc88dada26
 
+
 - alias: Turn off Master Bathroom light 10 minutes after last movement
   initial_state: 'on'
   trigger:
@@ -1077,8 +1149,11 @@
     condition: and
     conditions:
       - condition: time
-        after: '16:00:00'
+        after: '08:00:00'
         before: '22:00:00'
+      - condition: numeric_state
+        entity_id: sensor.aeotec_zw100_multisensor_6_luminance
+        below: 20
   action:
     service: homeassistant.turn_on
     data:
@@ -1292,3 +1367,21 @@
     - service_template: "cover.{{trigger.payload | lower }}_cover"
       data_template:
         entity_id: "{{ trigger.topic.split('/')[1] }}.{{ trigger.topic.split('/')[2] }}"
+
+- alias: Turn on tablet charging
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '07:00'
+  action:
+  - service: homeassistant.turn_on
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_5
+
+- alias: Turn off tablet charging
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '23:00'
+  action:
+  - service: homeassistant.turn_off
+    entity_id: switch.fibaro_system_fgwpef_wall_plug_switch_5
