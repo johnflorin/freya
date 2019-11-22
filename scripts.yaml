@@ -4,7 +4,7 @@
       - alias: Lights On
         service: light.turn_on
         data:
-          entity_id: light.kitchen_lamp,light.dining_area_light_2,light.color_lamp_2,light.reds_bedroom_lamp_2,light.moon_lamp,light.floor_lamp_2,light.light_strip
+          entity_id: light.kitchen_lamp,light.dining_area_light_2,light.color_lamp_2,light.reds_bedroom_lamp_2,light.moon_lamp,light.floor_lamp_2,light.light_strip,light.nina_s_table_lamp
       - alias: Switches On
         service: switch.turn_on
         data:
@@ -137,7 +137,7 @@
       - alias: Lights Off
         service: light.turn_off
         data:
-          entity_id: light.kitchen_lamp,light.dining_area_light_2,light.reds_bedroom_lamp_2,light.small_bathroom_light_2,light.master_bathroom_light_2,light.floor_lamp_2,light.light_strip
+          entity_id: light.kitchen_lamp,light.dining_area_light_2,light.reds_bedroom_lamp_2,light.small_bathroom_light_2,light.master_bathroom_light_2,light.floor_lamp_2,light.light_strip,light.nina_s_table_lamp
       - alias: Switches Off
         service: switch.turn_off
         data:
