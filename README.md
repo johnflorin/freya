@@ -37,6 +37,7 @@ Since discovering Home Assistant in the summer of 2018, it has become my favorit
 <b> Misc. hardware: </b>
 
 - Xbox One S
+- Nvidia Shield 2015
 - Logitech Harmony Home Hub + remote
 - AV receiver
 - iPhone 8, iPad Mini, Samsung S9, Samsung Tab A6
@@ -50,7 +51,7 @@ Since discovering Home Assistant in the summer of 2018, it has become my favorit
   - Ubuntu Server 18.04 VMs
   - HASS.IO
   - DeConz
-  - Plex
+  - Plex Media Server
   - QBittorrent
   - healthchecks.io CRON job for notifying of downtime via Telegram
 
@@ -58,10 +59,14 @@ Since discovering Home Assistant in the summer of 2018, it has become my favorit
   - Raspbian
   - Monitor script
   - Pi-Hole
-  - healthchecks.io CRON job for notifying of downtime via Telegram  
+  - healthchecks.io CRON job for notifying of downtime via Telegram
 
 - Desktop PC
   - Windows 10
+
+- Nvidia Shield 2015
+  - Plex client
+  - Steam Link 
 
 - iOS devices:
   - HA official 2.0 app
@@ -193,3 +198,17 @@ In order for my kid to be able to change light colors or turn lights on/off, I u
 <b> Result: </b>
 
 <img src="./images/tablet.jpg" width="1700">
+
+# Automations (Under Construction)
+
+- Outdoor Lights Morning & Evening Modes: At sunrise and sunset (+15 mins), the outdoor lights are turned on or off
+- Master Bedroom Morning Mode: Every weekday at 6:45, the bedroom window shutter is opened 50%
+- Master Bedroom Day Mode: Every weekday at 7:15, the bedroom window shutter is fully opened
+- Living Room Morning Mode: Every day at 6:00, the living room window shutter is fully opened
+- Set dark theme for the night: HA's theme gets changed to a light one at 7:00 AM
+- Set light theme for the day: HA's theme gets changed to a dark one at 9:00 PM
+
+# Scripts (Under Construction)
+
+- Evening Mode: Turns on various lights and closes window shutters on demand via Google Home
+- Make Sandwich: Turns on the sandwich maker's smart plug and keeps it on for 6 minutes (the amount of time needed to make a sandwich on my particular sandwich maker)
